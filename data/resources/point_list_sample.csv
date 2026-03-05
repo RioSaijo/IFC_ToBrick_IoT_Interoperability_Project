@@ -1,0 +1,3 @@
+point_name,equipment_ref,kind,unit,note
+DSSO-00001-SA-T,DSSO-00001,sensor,degC,sample temperature point
+AHU-01-SUPPLY-FLOW,AHU-01,sensor,m3/h,air flow

@@ -1,0 +1,11 @@
+bdns_tag,brick_class,description,confidence
+TEMP_SENS,brick:Temperature_Sensor,Air temperature sensor point or device context,rule
+CO2_SENS,brick:CO2_Sensor,CO2 concentration sensor,rule
+HUM_SENS,brick:Humidity_Sensor,Relative humidity sensor,rule
+VAV,brick:VAV,Variable air volume terminal unit,rule
+FCU,brick:Fan_Coil_Unit,Fan coil unit equipment,rule
+RTU,brick:RTU,Rooftop unit equipment,rule
+AHU,brick:AHU,Air handling unit equipment,rule
+CHWP,brick:Chilled_Water_Pump,Chilled water pump equipment,rule
+HWVLV,brick:Heating_Valve,Heating water valve component,rule
+DMP,brick:Damper,Air damper component,rule
