@@ -1,334 +1,225 @@
 ﻿# -*- coding: utf-8 -*-
+"""
+points_csv_ingestor.loader
+
+仕様（最新版）:
+- CSVスキーマ: point_id,name,unit,bdns_abbreviation,space_id
+- すべてのセンサーに brick:hasLocation を付与する
+- bdns_abbreviation = NaN → Space所属 → space_id を使用し bot:Space を生成
+- bdns_abbreviation あり → 機器所属 → m51:<bdns> を生成し、その個体に brick:hasLocation を付与
+- Sensor自身にも hasLocation を付与する（必須）
+"""
+
 from __future__ import annotations
+import re
+from typing import Optional
+import pandas as pd
+from rdflib import Graph, Namespace, URIRef, Literal
+from rdflib.namespace import RDF, RDFS, XSD
 
-import csv
-import json
-import logging
-from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Tuple
+# 先頭付近の import 群は既存のまま
 
-from app.contracts import PointRow, PointTable
+# --- ユーティリティ: 欠損判定のヘルパ ---
+import pandas as pd
 
-logger = logging.getLogger(__name__)
+def _is_missing(x) -> bool:
+    return x is None or pd.isna(x)
 
-# ------------------------------
-# 列名候補マップ (テストで差し替え可能なモジュール定数)
-# ------------------------------
-POINT_NAME_ALIASES: Tuple[str, ...] = (
-    "point_name", "name", "tag", "point", "signal", "trend_name", "io_point",
-)
-
-EQUIPMENT_REF_ALIASES: Tuple[str, ...] = (
-    "equipment_ref", "equipment", "equip", "ahu_id", "system", "device", "asset", "equipment_id",
-)
-
-KIND_ALIASES: Tuple[str, ...] = (
-    "kind", "type", "point_type", "io_type", "category", "signal_type",
-)
-
-UNIT_ALIASES: Tuple[str, ...] = (
-    "unit", "units", "eng_units", "uom",
-)
-
-# 単位の簡易正規化辞書
-DEFAULT_UNIT_NORMALIZATION: Dict[str, str] = {
-    "°c": "degC",
-    "deg c": "degC",
-    "degc": "degC",
-    "c": "degC",
-    "°f": "degF",
-    "deg f": "degF",
-    "degf": "degF",
-    "kw": "kW",
-    "w": "W",
-    "pa": "Pa",
-    "kpa": "kPa",
-    "m3/h": "m3/h",
-    "m3/s": "m3/s",
-    "%": "%",
-}
-
-# kind の簡易正規化辞書
-DEFAULT_KIND_NORMALIZATION: Dict[str, str] = {
-    "sensor": "sensor",
-    "sns": "sensor",
-    "cmd": "command",
-    "command": "command",
-    "setpoint": "setpoint",
-    "sp": "setpoint",
-    "status": "status",
-    "st": "status",
-    "alarm": "alarm",
-}
-
-# ------------------------------
-# CSVW メタデータの簡易解釈
-# ------------------------------
-def _load_csvw_metadata(path: Optional[str | Path]) -> Dict[str, Any]:
-    """
-    CSVW メタデータ JSON の最小読み込み. 存在しない場合は空辞書を返す.
-    想定利用:
-      - columns[].titles による列名マッピング
-      - dialect.encoding による文字コードヒント
-      - tableSchema.aboutUrl などは未使用
-    """
-    if not path:
-        return {}
-    p = Path(path)
-    if not p.is_file():
-        logger.warning("CSVW metadata not found, path=%s", p)
-        return {}
-    try:
-        with p.open("r", encoding="utf-8") as f:
-            meta = json.load(f)
-            return meta if isinstance(meta, dict) else {}
-    except Exception as e:
-        logger.warning("CSVW metadata load failed, path=%s, err=%s", p, e)
-        return {}
-
-
-def _aliases_from_csvw(meta: Dict[str, Any]) -> Dict[str, List[str]]:
-    """
-    CSVW の columns[].name と titles から, 列名エイリアスを抽出.
-    形式:
-      {
-        "point_name": ["Point Name", "Tag", ...],
-        "equipment_ref": ["Equipment", ...],
-        ...
-      }
-    """
-    out: Dict[str, List[str]] = {}
-    cols = meta.get("tableSchema", {}).get("columns", []) if meta else []
-    if not isinstance(cols, list):
-        return out
-
-    # CSVW では titles が配列または文字列の場合がある
-    def _as_list(x: Any) -> List[str]:
-        if x is None:
-            return []
-        if isinstance(x, list):
-            return [str(v) for v in x]
-        return [str(x)]
-
-    for col in cols:
-        if not isinstance(col, dict):
-            continue
-        name = str(col.get("name") or "").strip()
-        titles = [t.strip() for t in _as_list(col.get("titles")) if str(t).strip()]
-        if not name:
-            continue
-
-        # 列の意味を推定してキー名へ寄せる簡易規則
-        lname = name.lower()
-        if any(k in lname for k in ["point", "tag", "signal", "name"]):
-            out.setdefault("point_name", []).extend([name] + titles)
-        elif any(k in lname for k in ["equip", "system", "device", "asset", "ahu"]):
-            out.setdefault("equipment_ref", []).extend([name] + titles)
-        elif any(k in lname for k in ["kind", "type", "io type", "category"]):
-            out.setdefault("kind", []).extend([name] + titles)
-        elif any(k in lname for k in ["unit", "uom", "eng"]):
-            out.setdefault("unit", []).extend([name] + titles)
-        # 未該当は無視
-
-    return out
-
-
-def _encoding_from_csvw(meta: Dict[str, Any]) -> Optional[str]:
-    """
-    CSVW の dialect.encoding があれば返す.
-    """
-    try:
-        enc = meta.get("dialect", {}).get("encoding")
-        if isinstance(enc, str) and enc.strip():
-            return enc.strip()
-    except Exception:
-        pass
-    return None
-
-
-# ------------------------------
-# 列マッピング解決
-# ------------------------------
-def _resolve_column(source_header: List[str], aliases: List[str]) -> Optional[str]:
-    """
-    大文字小文字と前後空白を無視して最初に一致する元列名を返す.
-    """
-    norm_header = {h.strip().lower(): h for h in source_header}
-    for a in aliases:
-        key = a.strip().lower()
-        if key in norm_header:
-            return norm_header[key]
-    return None
-
-
-def _candidate_aliases(
-    csvw_aliases: Dict[str, List[str]] | None,
-    builtin_candidates: Tuple[str, ...],
-) -> List[str]:
-    """
-    CSVW の titles 由来の別名を優先し, その後に内蔵候補を連結する.
-    """
-    out: List[str] = []
-    if csvw_aliases:
-        out.extend(csvw_aliases)
-    out.extend(list(builtin_candidates))
-    # 重複排除を安定順序で
-    seen: set[str] = set()
-    dedup: List[str] = []
-    for x in out:
-        xl = x.strip().lower()
-        if xl and xl not in seen:
-            seen.add(xl)
-            dedup.append(x)
-    return dedup
-
-
-# ------------------------------
-# 正規化ヘルパ
-# ------------------------------
-def _normalize_unit(unit: Optional[str], unit_map: Optional[Dict[str, str]]) -> Optional[str]:
-    if unit is None:
+def _as_str_or_none(x):
+    if _is_missing(x):
         return None
-    u = unit.strip()
+    s = str(x).strip()
+    if s in ("", "None", "none", "NaN", "nan"):
+        return None
+    return s
+
+BASE_NS = "https://id.morgate51.org/project#"
+
+M51  = Namespace(BASE_NS)
+BRICK = Namespace("https://brickschema.org/schema/Brick#")
+BOT   = Namespace("https://w3id.org/bot#")
+QUDT_UNIT = Namespace("http://qudt.org/vocab/unit/")
+
+__all__ = ["csv_to_brick_graph", "write_graph", "BASE_NS"]
+
+
+def _safe_local(local: str) -> str:
+    s = re.sub(r"[^A-Za-z0-9_\-]", "_", local)
+    if not re.match(r"^[A-Za-z_]", s):
+        s = "X_" + s
+    return s
+
+
+# --- Sensor class mapping (Brick 1.3 実在クラスのみ) ---
+def _infer_sensor_class(name: str) -> URIRef:
+    n = (name or "").lower()
+
+    if "occupancy" in n or "在室" in n:
+        return BRICK["Occupancy_Sensor"]
+
+    if "co2" in n:
+        if any(k in n for k in ["return", "rat", "還気"]):
+            return BRICK["Return_Air_CO2_Sensor"]
+        return BRICK["CO2_Sensor"]
+
+    if "temp" in n:
+        if any(k in n for k in ["supply", "sat", "給気"]):
+            return BRICK["Supply_Air_Temperature_Sensor"]
+        if any(k in n for k in ["return", "rat", "還気"]):
+            return BRICK["Return_Air_Temperature_Sensor"]
+        if any(k in n for k in ["mixed", "mat", "混合"]):
+            return BRICK["Mixed_Air_Temperature_Sensor"]
+        return BRICK["Air_Temperature_Sensor"]
+
+    if "humidity" in n or "rh" in n:
+        return BRICK["Humidity_Sensor"]
+
+    if "flow" in n:
+        if "supply" in n:
+            return BRICK["Supply_Air_Flow_Sensor"]
+        if "discharge" in n:
+            return BRICK["Discharge_Air_Flow_Sensor"]
+        return BRICK["Air_Flow_Sensor"]
+
+    if "static" in n or "静圧" in n:
+        return BRICK["Supply_Air_Static_Pressure_Sensor"]
+
+    if "differential" in n or "差圧" in n:
+        return BRICK["Air_Differential_Pressure_Sensor"]
+
+    if "fan_speed" in n:
+        return BRICK["Fan_Speed_Sensor"]
+
+    if "fan_status" in n:
+        return BRICK["Fan_Status_Sensor"]
+
+    return BRICK["Sensor"]
+
+
+# --- Unit mapping ---
+def _map_unit_to_qudt(u: Optional[str]) -> Optional[URIRef]:
     if not u:
         return None
-    key = u.lower().replace("°", "°")  # 明示的に保持
-    # CSVW 側で優先上書き
-    if unit_map and key in unit_map:
-        return unit_map[key]
-    # 既定辞書
-    return DEFAULT_UNIT_NORMALIZATION.get(key, u)
-
-
-def _normalize_kind(kind: Optional[str], kind_map: Optional[Dict[str, str]]) -> Optional[str]:
-    if kind is None:
+    t = u.lower()
+    if t == "binary":
         return None
-    k = kind.strip()
-    if not k:
-        return None
-    key = k.lower()
-    if kind_map and key in kind_map:
-        return kind_map[key]
-    return DEFAULT_KIND_NORMALIZATION.get(key, k)
+    if t == "degc":
+        return QUDT_UNIT["DEG_C"]
+    if t == "pa":
+        return QUDT_UNIT["PA"]
+    if t in ("m3/s","m³/s"):
+        return QUDT_UNIT["M3-PER-SEC"]
+    if t == "ppm":
+        return QUDT_UNIT["PPM"]
+    if t in ("%","percent","%rh","rh"):
+        return QUDT_UNIT["PERCENT"]
+    return None
 
 
-# ------------------------------
-# 文字コードフォールバック読取
-# ------------------------------
-def _read_dict_rows(csv_path: Path, preferred_encoding: Optional[str]) -> List[Dict[str, Any]]:
-    encodings = [preferred_encoding] if preferred_encoding else []
-    # 優先順: CSVW 指定 -> utf-8-sig -> utf-8 -> cp932
-    for e in ["utf-8-sig", "utf-8", "cp932"]:
-        if e not in encodings:
-            encodings.append(e)
+def csv_to_brick_graph(csv_path: str, base_ns: str = BASE_NS, verbose=False) -> Graph:
+    df = pd.read_csv(csv_path, dtype=object)
 
-    last_err: Optional[Exception] = None
-    for enc in encodings:
+    required = ["point_id","name","unit","bdns_abbreviation","space_id"]
+    for c in required:
+        if c not in df.columns:
+            raise ValueError(f"Missing col: {c}")
+
+    # 列正規化, 空文字や文字列NaNを None に統一
+    for c in required:
+        df[c] = df[c].apply(_as_str_or_none)
+
+    g = Graph()
+    m51 = Namespace(base_ns)
+    g.bind("m51", m51)
+    g.bind("brick", BRICK)
+    g.bind("bot", BOT)
+    g.bind("qudt-unit", QUDT_UNIT)
+    g.bind("rdfs", RDFS)
+    g.bind("xsd", XSD)
+
+    SENSOR_ID = m51["sensorID"]
+
+    total = 0
+    skipped_space_required = 0
+
+    for _, row in df.iterrows():
+        total += 1
+
+        # point_id
+        pid_raw = row["point_id"]
         try:
-            with csv_path.open("r", encoding=enc, newline="") as f:
-                reader = csv.DictReader(f)
-                rows = [dict(r) for r in reader]
-                logger.info("CSV loaded, path=%s, encoding=%s, rows=%d", csv_path, enc, len(rows))
-                return rows
-        except Exception as e:
-            last_err = e
-            logger.warning("CSV read failed, path=%s, encoding=%s, err=%s", csv_path, enc, e)
+            pid = int(pid_raw) if not _is_missing(pid_raw) else None
+        except Exception:
+            pid = None
+        if pid is None:
+            # point_id 欠損はスキップ
             continue
-    # すべて失敗
-    raise RuntimeError(f"CSV read failed for {csv_path} with encodings {encodings}. last_err={last_err}")
+
+        name = _as_str_or_none(row["name"]) or f"sensor_{pid}"
+        unit = _as_str_or_none(row["unit"])
+        bdns = _as_str_or_none(row["bdns_abbreviation"])
+        space_id = _as_str_or_none(row["space_id"])
+
+        # センサー個体
+        sensor_iri = m51[f"Sensor_{pid}"]
+        class_iri  = _infer_sensor_class(name)
+        g.add((sensor_iri, RDF.type, class_iri))
+        g.add((sensor_iri, RDFS.label, Literal(name)))
+        g.add((sensor_iri, SENSOR_ID, Literal(pid, datatype=XSD.integer)))
+
+        # --- hasLocation を必ず付与する方針 ---
+        if _is_missing(bdns):
+            # Space 所属, space_id から Space 個体へ
+            if _is_missing(space_id):
+                skipped_space_required += 1
+            else:
+                local = f"m51_{space_id.replace('-', '_')}"
+                space_iri = m51[_safe_local(local)]  # _safe_local はここで文字列が保証される
+                g.add((space_iri, RDF.type, BOT.Space))
+                g.add((sensor_iri, BRICK.hasLocation, space_iri))
+        else:
+            # 機器所属, 機器個体の生成と hasPoint
+            equip_local = _safe_local(bdns)  # ここでbdnsは必ず文字列
+            equip_iri = m51[equip_local]
+
+            # 型付けの推定
+            bdns_u = bdns.upper()
+            if bdns_u.startswith("AHU"):
+                g.add((equip_iri, RDF.type, BRICK["AHU"]))
+            elif bdns_u.startswith("VAVS") or bdns_u.startswith("VAV"):
+                g.add((equip_iri, RDF.type, BRICK["VAV"]))
+            elif bdns_u.startswith("FCU"):
+                g.add((equip_iri, RDF.type, BRICK["FCU"]))
+            else:
+                g.add((equip_iri, RDF.type, BRICK["Equipment"]))
+
+            # 付帯
+            g.add((equip_iri, BRICK.hasPoint, sensor_iri))
+
+            # センサーにも hasLocation を付ける今回の仕様
+            # 優先順位: space_id があれば Space へ, なければ機器に付いている Location を流用, それもなければ未付与
+            if not _is_missing(space_id):
+                local = f"m51_{space_id.replace('-', '_')}"
+                space_iri = m51[_safe_local(local)]
+                g.add((space_iri, RDF.type, BOT.Space))
+                g.add((sensor_iri, BRICK.hasLocation, space_iri))
+            else:
+                # 機器の hasLocation を流用, なければ今は付与不能
+                # ここで機器のロケーションが既知なら, 次のように継承できる
+                # for _, _, loc in g.triples((equip_iri, BRICK.hasLocation, None)):
+                #     g.add((sensor_iri, BRICK.hasLocation, loc))
+                pass
+
+        # 単位
+        unit_iri = _map_unit_to_qudt(unit)
+        if unit_iri is not None:
+            g.add((sensor_iri, BRICK.hasUnit, unit_iri))
+
+    if verbose:
+        print(f"rows={total}, skipped_space_required={skipped_space_required}, triples={len(g)}")
+    return g
 
 
-# ------------------------------
-# 公開関数
-# ------------------------------
-def load_points_csv(
-    csv_path: str | Path,
-    csvw_metadata_path: str | Path | None = None,
-) -> PointTable:
-    """
-    ポイント一覧 CSV を読み込み, PointRow の配列へ正規化して返す.
-    列名ゆらぎは内蔵候補と CSVW メタデータの titles を用いて解決する.
-    unit と kind は簡易正規化を適用する.
-    """
-    csv_path = Path(csv_path)
 
-    # CSVW メタデータの読み込み
-    meta = _load_csvw_metadata(csvw_metadata_path)
-    csvw_alias_map = _aliases_from_csvw(meta)
-    enc_hint = _encoding_from_csvw(meta)
-
-    # CSV 読取
-    dict_rows = _read_dict_rows(csv_path, preferred_encoding=enc_hint)
-    if not dict_rows:
-        logger.info("No rows found in CSV, path=%s", csv_path)
-        return PointTable(rows=[])
-
-    # ヘッダ
-    header = list(dict_rows[0].keys())
-
-    # 列解決
-    name_col = _resolve_column(
-        header,
-        _candidate_aliases(csvw_alias_map.get("point_name"), POINT_NAME_ALIASES),
-    )
-    equip_col = _resolve_column(
-        header,
-        _candidate_aliases(csvw_alias_map.get("equipment_ref"), EQUIPMENT_REF_ALIASES),
-    )
-    kind_col = _resolve_column(
-        header,
-        _candidate_aliases(csvw_alias_map.get("kind"), KIND_ALIASES),
-    )
-    unit_col = _resolve_column(
-        header,
-        _candidate_aliases(csvw_alias_map.get("unit"), UNIT_ALIASES),
-    )
-
-    logger.info(
-        "Resolved columns. point_name=%s, equipment_ref=%s, kind=%s, unit=%s",
-        name_col, equip_col, kind_col, unit_col,
-    )
-
-    # CSVW に unit/kind 正規化辞書がある場合の受け口
-    unit_norm_map = None
-    kind_norm_map = None
-    try:
-        unit_norm_map = meta.get("unitNormalization") if isinstance(meta, dict) else None
-        kind_norm_map = meta.get("kindNormalization") if isinstance(meta, dict) else None
-    except Exception:
-        pass
-
-    # PointRow の組立
-    items: List[PointRow] = []
-    missing_name = 0
-
-    for r in dict_rows:
-        raw: Dict[str, Any] = dict(r)
-
-        point_name = str(r.get(name_col) or "").strip() if name_col else ""
-        if not point_name:
-            # 仕様: point_name 欠損は None ではなく空文字で検出しやすく保持
-            missing_name += 1
-
-        equipment_ref = str(r.get(equip_col)).strip() if equip_col and r.get(equip_col) not in (None, "") else None
-
-        kind_val_raw = str(r.get(kind_col)).strip() if kind_col and r.get(kind_col) not in (None, "") else None
-        kind_val = _normalize_kind(kind_val_raw, kind_norm_map)
-
-        unit_val_raw = str(r.get(unit_col)).strip() if unit_col and r.get(unit_col) not in (None, "") else None
-        unit_val = _normalize_unit(unit_val_raw, unit_norm_map)
-
-        row = PointRow(
-            point_name=point_name,
-            equipment_ref=equipment_ref,
-            kind=kind_val,
-            unit=unit_val,
-            raw=raw,
-        )
-        items.append(row)
-
-    if missing_name > 0:
-        logger.warning("Rows with missing point_name detected, count=%d, path=%s", missing_name, csv_path)
-
-    logger.info("PointTable built, rows=%d, path=%s", len(items), csv_path)
-    return PointTable(rows=items)
+def write_graph(g:Graph, out_ttl_path:str):
+    g.serialize(destination=out_ttl_path, format="turtle")
