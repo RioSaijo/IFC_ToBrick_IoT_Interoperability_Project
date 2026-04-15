@@ -1,0 +1,1773 @@
+{
+  "name": "IfcRoot",
+  "subtypes": [
+    {
+      "name": "IfcObjectDefinition",
+      "subtypes": [
+        {
+          "name": "IfcContext",
+          "subtypes": [
+            {
+              "name": "IfcProject",
+              "subtypes": []
+            },
+            {
+              "name": "IfcProjectLibrary",
+              "subtypes": []
+            }
+          ]
+        },
+        {
+          "name": "IfcObject",
+          "subtypes": [
+            {
+              "name": "IfcActor",
+              "subtypes": [
+                {
+                  "name": "IfcOccupant",
+                  "subtypes": []
+                }
+              ]
+            },
+            {
+              "name": "IfcControl",
+              "subtypes": [
+                {
+                  "name": "IfcActionRequest",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcCostItem",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcCostSchedule",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcPerformanceHistory",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcPermit",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcProjectOrder",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcWorkCalendar",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcWorkControl",
+                  "subtypes": [
+                    {
+                      "name": "IfcWorkPlan",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcWorkSchedule",
+                      "subtypes": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "IfcGroup",
+              "subtypes": [
+                {
+                  "name": "IfcAsset",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcInventory",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcStructuralLoadGroup",
+                  "subtypes": [
+                    {
+                      "name": "IfcStructuralLoadCase",
+                      "subtypes": []
+                    }
+                  ]
+                },
+                {
+                  "name": "IfcStructuralResultGroup",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcSystem",
+                  "subtypes": [
+                    {
+                      "name": "IfcBuildingSystem",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcDistributionSystem",
+                      "subtypes": [
+                        {
+                          "name": "IfcDistributionCircuit",
+                          "subtypes": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcStructuralAnalysisModel",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcZone",
+                      "subtypes": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "IfcProcess",
+              "subtypes": [
+                {
+                  "name": "IfcEvent",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcProcedure",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcTask",
+                  "subtypes": []
+                }
+              ]
+            },
+            {
+              "name": "IfcProduct",
+              "subtypes": [
+                {
+                  "name": "IfcAnnotation",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcElement",
+                  "subtypes": [
+                    {
+                      "name": "IfcBuildingElement",
+                      "subtypes": [
+                        {
+                          "name": "IfcBeam",
+                          "subtypes": [
+                            {
+                              "name": "IfcBeamStandardCase",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcBuildingElementProxy",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcChimney",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcColumn",
+                          "subtypes": [
+                            {
+                              "name": "IfcColumnStandardCase",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcCovering",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcCurtainWall",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcDoor",
+                          "subtypes": [
+                            {
+                              "name": "IfcDoorStandardCase",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcFooting",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcMember",
+                          "subtypes": [
+                            {
+                              "name": "IfcMemberStandardCase",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcPile",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcPlate",
+                          "subtypes": [
+                            {
+                              "name": "IfcPlateStandardCase",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcRailing",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcRamp",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcRampFlight",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcRoof",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcShadingDevice",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcSlab",
+                          "subtypes": [
+                            {
+                              "name": "IfcSlabElementedCase",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcSlabStandardCase",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcStair",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcStairFlight",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcWall",
+                          "subtypes": [
+                            {
+                              "name": "IfcWallElementedCase",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcWallStandardCase",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcWindow",
+                          "subtypes": [
+                            {
+                              "name": "IfcWindowStandardCase",
+                              "subtypes": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcCivilElement",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcDistributionElement",
+                      "subtypes": [
+                        {
+                          "name": "IfcDistributionControlElement",
+                          "subtypes": [
+                            {
+                              "name": "IfcActuator",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcAlarm",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcController",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcFlowInstrument",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcProtectiveDeviceTrippingUnit",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcSensor",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcUnitaryControlElement",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcDistributionFlowElement",
+                          "subtypes": [
+                            {
+                              "name": "IfcDistributionChamberElement",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcEnergyConversionDevice",
+                              "subtypes": [
+                                {
+                                  "name": "IfcAirToAirHeatRecovery",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcBoiler",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcBurner",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcChiller",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcCoil",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcCondenser",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcCooledBeam",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcCoolingTower",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcElectricGenerator",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcElectricMotor",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcEngine",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcEvaporativeCooler",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcEvaporator",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcHeatExchanger",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcHumidifier",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcMotorConnection",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcSolarDevice",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcTransformer",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcTubeBundle",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcUnitaryEquipment",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcFlowController",
+                              "subtypes": [
+                                {
+                                  "name": "IfcAirTerminalBox",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcDamper",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcElectricDistributionBoard",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcElectricTimeControl",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcFlowMeter",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcProtectiveDevice",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcSwitchingDevice",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcValve",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcFlowFitting",
+                              "subtypes": [
+                                {
+                                  "name": "IfcCableCarrierFitting",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcCableFitting",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcDuctFitting",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcJunctionBox",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcPipeFitting",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcFlowMovingDevice",
+                              "subtypes": [
+                                {
+                                  "name": "IfcCompressor",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcFan",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcPump",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcFlowSegment",
+                              "subtypes": [
+                                {
+                                  "name": "IfcCableCarrierSegment",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcCableSegment",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcDuctSegment",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcPipeSegment",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcFlowStorageDevice",
+                              "subtypes": [
+                                {
+                                  "name": "IfcElectricFlowStorageDevice",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcTank",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcFlowTerminal",
+                              "subtypes": [
+                                {
+                                  "name": "IfcAirTerminal",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcAudioVisualAppliance",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcCommunicationsAppliance",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcElectricAppliance",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcFireSuppressionTerminal",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcLamp",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcLightFixture",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcMedicalDevice",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcOutlet",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcSanitaryTerminal",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcSpaceHeater",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcStackTerminal",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcWasteTerminal",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcFlowTreatmentDevice",
+                              "subtypes": [
+                                {
+                                  "name": "IfcDuctSilencer",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcFilter",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcInterceptor",
+                                  "subtypes": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcElementAssembly",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcElementComponent",
+                      "subtypes": [
+                        {
+                          "name": "IfcBuildingElementPart",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcDiscreteAccessory",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcFastener",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcMechanicalFastener",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcReinforcingElement",
+                          "subtypes": [
+                            {
+                              "name": "IfcReinforcingBar",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcReinforcingMesh",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcTendon",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcTendonAnchor",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcVibrationIsolator",
+                          "subtypes": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcFeatureElement",
+                      "subtypes": [
+                        {
+                          "name": "IfcFeatureElementAddition",
+                          "subtypes": [
+                            {
+                              "name": "IfcProjectionElement",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcFeatureElementSubtraction",
+                          "subtypes": [
+                            {
+                              "name": "IfcOpeningElement",
+                              "subtypes": [
+                                {
+                                  "name": "IfcOpeningStandardCase",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcVoidingFeature",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcSurfaceFeature",
+                          "subtypes": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcFurnishingElement",
+                      "subtypes": [
+                        {
+                          "name": "IfcFurniture",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcSystemFurnitureElement",
+                          "subtypes": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcGeographicElement",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcTransportElement",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcVirtualElement",
+                      "subtypes": []
+                    }
+                  ]
+                },
+                {
+                  "name": "IfcGrid",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcPort",
+                  "subtypes": [
+                    {
+                      "name": "IfcDistributionPort",
+                      "subtypes": []
+                    }
+                  ]
+                },
+                {
+                  "name": "IfcProxy",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcSpatialElement",
+                  "subtypes": [
+                    {
+                      "name": "IfcExternalSpatialStructureElement",
+                      "subtypes": [
+                        {
+                          "name": "IfcExternalSpatialElement",
+                          "subtypes": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcSpatialStructureElement",
+                      "subtypes": [
+                        {
+                          "name": "IfcBuilding",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcBuildingStorey",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcSite",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcSpace",
+                          "subtypes": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcSpatialZone",
+                      "subtypes": []
+                    }
+                  ]
+                },
+                {
+                  "name": "IfcStructuralActivity",
+                  "subtypes": [
+                    {
+                      "name": "IfcStructuralAction",
+                      "subtypes": [
+                        {
+                          "name": "IfcStructuralCurveAction",
+                          "subtypes": [
+                            {
+                              "name": "IfcStructuralLinearAction",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcStructuralPointAction",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcStructuralSurfaceAction",
+                          "subtypes": [
+                            {
+                              "name": "IfcStructuralPlanarAction",
+                              "subtypes": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcStructuralReaction",
+                      "subtypes": [
+                        {
+                          "name": "IfcStructuralCurveReaction",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcStructuralPointReaction",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcStructuralSurfaceReaction",
+                          "subtypes": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "IfcStructuralItem",
+                  "subtypes": [
+                    {
+                      "name": "IfcStructuralConnection",
+                      "subtypes": [
+                        {
+                          "name": "IfcStructuralCurveConnection",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcStructuralPointConnection",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcStructuralSurfaceConnection",
+                          "subtypes": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcStructuralMember",
+                      "subtypes": [
+                        {
+                          "name": "IfcStructuralCurveMember",
+                          "subtypes": [
+                            {
+                              "name": "IfcStructuralCurveMemberVarying",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcStructuralSurfaceMember",
+                          "subtypes": [
+                            {
+                              "name": "IfcStructuralSurfaceMemberVarying",
+                              "subtypes": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "IfcResource",
+              "subtypes": [
+                {
+                  "name": "IfcConstructionResource",
+                  "subtypes": [
+                    {
+                      "name": "IfcConstructionEquipmentResource",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcConstructionMaterialResource",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcConstructionProductResource",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcCrewResource",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcLaborResource",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcSubContractResource",
+                      "subtypes": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "IfcTypeObject",
+          "subtypes": [
+            {
+              "name": "IfcTypeProcess",
+              "subtypes": [
+                {
+                  "name": "IfcEventType",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcProcedureType",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcTaskType",
+                  "subtypes": []
+                }
+              ]
+            },
+            {
+              "name": "IfcTypeProduct",
+              "subtypes": [
+                {
+                  "name": "IfcDoorStyle",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcElementType",
+                  "subtypes": [
+                    {
+                      "name": "IfcBuildingElementType",
+                      "subtypes": [
+                        {
+                          "name": "IfcBeamType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcBuildingElementProxyType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcChimneyType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcColumnType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcCoveringType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcCurtainWallType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcDoorType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcFootingType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcMemberType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcPileType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcPlateType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcRailingType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcRampFlightType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcRampType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcRoofType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcShadingDeviceType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcSlabType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcStairFlightType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcStairType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcWallType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcWindowType",
+                          "subtypes": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcCivilElementType",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcDistributionElementType",
+                      "subtypes": [
+                        {
+                          "name": "IfcDistributionControlElementType",
+                          "subtypes": [
+                            {
+                              "name": "IfcActuatorType",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcAlarmType",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcControllerType",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcFlowInstrumentType",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcProtectiveDeviceTrippingUnitType",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcSensorType",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcUnitaryControlElementType",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcDistributionFlowElementType",
+                          "subtypes": [
+                            {
+                              "name": "IfcDistributionChamberElementType",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcEnergyConversionDeviceType",
+                              "subtypes": [
+                                {
+                                  "name": "IfcAirToAirHeatRecoveryType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcBoilerType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcBurnerType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcChillerType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcCoilType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcCondenserType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcCooledBeamType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcCoolingTowerType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcElectricGeneratorType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcElectricMotorType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcEngineType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcEvaporativeCoolerType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcEvaporatorType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcHeatExchangerType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcHumidifierType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcMotorConnectionType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcSolarDeviceType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcTransformerType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcTubeBundleType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcUnitaryEquipmentType",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcFlowControllerType",
+                              "subtypes": [
+                                {
+                                  "name": "IfcAirTerminalBoxType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcDamperType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcElectricDistributionBoardType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcElectricTimeControlType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcFlowMeterType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcProtectiveDeviceType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcSwitchingDeviceType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcValveType",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcFlowFittingType",
+                              "subtypes": [
+                                {
+                                  "name": "IfcCableCarrierFittingType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcCableFittingType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcDuctFittingType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcJunctionBoxType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcPipeFittingType",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcFlowMovingDeviceType",
+                              "subtypes": [
+                                {
+                                  "name": "IfcCompressorType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcFanType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcPumpType",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcFlowSegmentType",
+                              "subtypes": [
+                                {
+                                  "name": "IfcCableCarrierSegmentType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcCableSegmentType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcDuctSegmentType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcPipeSegmentType",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcFlowStorageDeviceType",
+                              "subtypes": [
+                                {
+                                  "name": "IfcElectricFlowStorageDeviceType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcTankType",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcFlowTerminalType",
+                              "subtypes": [
+                                {
+                                  "name": "IfcAirTerminalType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcAudioVisualApplianceType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcCommunicationsApplianceType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcElectricApplianceType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcFireSuppressionTerminalType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcLampType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcLightFixtureType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcMedicalDeviceType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcOutletType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcSanitaryTerminalType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcSpaceHeaterType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcStackTerminalType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcWasteTerminalType",
+                                  "subtypes": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "IfcFlowTreatmentDeviceType",
+                              "subtypes": [
+                                {
+                                  "name": "IfcDuctSilencerType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcFilterType",
+                                  "subtypes": []
+                                },
+                                {
+                                  "name": "IfcInterceptorType",
+                                  "subtypes": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcElementAssemblyType",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcElementComponentType",
+                      "subtypes": [
+                        {
+                          "name": "IfcBuildingElementPartType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcDiscreteAccessoryType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcFastenerType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcMechanicalFastenerType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcReinforcingElementType",
+                          "subtypes": [
+                            {
+                              "name": "IfcReinforcingBarType",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcReinforcingMeshType",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcTendonAnchorType",
+                              "subtypes": []
+                            },
+                            {
+                              "name": "IfcTendonType",
+                              "subtypes": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "IfcVibrationIsolatorType",
+                          "subtypes": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcFurnishingElementType",
+                      "subtypes": [
+                        {
+                          "name": "IfcFurnitureType",
+                          "subtypes": []
+                        },
+                        {
+                          "name": "IfcSystemFurnitureElementType",
+                          "subtypes": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcGeographicElementType",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcTransportElementType",
+                      "subtypes": []
+                    }
+                  ]
+                },
+                {
+                  "name": "IfcSpatialElementType",
+                  "subtypes": [
+                    {
+                      "name": "IfcSpatialStructureElementType",
+                      "subtypes": [
+                        {
+                          "name": "IfcSpaceType",
+                          "subtypes": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "IfcSpatialZoneType",
+                      "subtypes": []
+                    }
+                  ]
+                },
+                {
+                  "name": "IfcWindowStyle",
+                  "subtypes": []
+                }
+              ]
+            },
+            {
+              "name": "IfcTypeResource",
+              "subtypes": [
+                {
+                  "name": "IfcConstructionResourceType",
+                  "subtypes": [
+                    {
+                      "name": "IfcConstructionEquipmentResourceType",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcConstructionMaterialResourceType",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcConstructionProductResourceType",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcCrewResourceType",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcLaborResourceType",
+                      "subtypes": []
+                    },
+                    {
+                      "name": "IfcSubContractResourceType",
+                      "subtypes": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "IfcPropertyDefinition",
+      "subtypes": [
+        {
+          "name": "IfcPropertySetDefinition",
+          "subtypes": [
+            {
+              "name": "IfcPreDefinedPropertySet",
+              "subtypes": [
+                {
+                  "name": "IfcDoorLiningProperties",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcDoorPanelProperties",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcPermeableCoveringProperties",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcReinforcementDefinitionProperties",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcWindowLiningProperties",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcWindowPanelProperties",
+                  "subtypes": []
+                }
+              ]
+            },
+            {
+              "name": "IfcPropertySet",
+              "subtypes": []
+            },
+            {
+              "name": "IfcQuantitySet",
+              "subtypes": [
+                {
+                  "name": "IfcElementQuantity",
+                  "subtypes": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "IfcPropertyTemplateDefinition",
+          "subtypes": [
+            {
+              "name": "IfcPropertySetTemplate",
+              "subtypes": []
+            },
+            {
+              "name": "IfcPropertyTemplate",
+              "subtypes": [
+                {
+                  "name": "IfcComplexPropertyTemplate",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcSimplePropertyTemplate",
+                  "subtypes": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "IfcRelationship",
+      "subtypes": [
+        {
+          "name": "IfcRelAssigns",
+          "subtypes": [
+            {
+              "name": "IfcRelAssignsToActor",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelAssignsToControl",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelAssignsToGroup",
+              "subtypes": [
+                {
+                  "name": "IfcRelAssignsToGroupByFactor",
+                  "subtypes": []
+                }
+              ]
+            },
+            {
+              "name": "IfcRelAssignsToProcess",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelAssignsToProduct",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelAssignsToResource",
+              "subtypes": []
+            }
+          ]
+        },
+        {
+          "name": "IfcRelAssociates",
+          "subtypes": [
+            {
+              "name": "IfcRelAssociatesApproval",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelAssociatesClassification",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelAssociatesConstraint",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelAssociatesDocument",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelAssociatesLibrary",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelAssociatesMaterial",
+              "subtypes": []
+            }
+          ]
+        },
+        {
+          "name": "IfcRelConnects",
+          "subtypes": [
+            {
+              "name": "IfcRelConnectsElements",
+              "subtypes": [
+                {
+                  "name": "IfcRelConnectsPathElements",
+                  "subtypes": []
+                },
+                {
+                  "name": "IfcRelConnectsWithRealizingElements",
+                  "subtypes": []
+                }
+              ]
+            },
+            {
+              "name": "IfcRelConnectsPortToElement",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelConnectsPorts",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelConnectsStructuralActivity",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelConnectsStructuralMember",
+              "subtypes": [
+                {
+                  "name": "IfcRelConnectsWithEccentricity",
+                  "subtypes": []
+                }
+              ]
+            },
+            {
+              "name": "IfcRelContainedInSpatialStructure",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelCoversBldgElements",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelCoversSpaces",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelFillsElement",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelFlowControlElements",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelInterferesElements",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelReferencedInSpatialStructure",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelSequence",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelServicesBuildings",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelSpaceBoundary",
+              "subtypes": [
+                {
+                  "name": "IfcRelSpaceBoundary1stLevel",
+                  "subtypes": [
+                    {
+                      "name": "IfcRelSpaceBoundary2ndLevel",
+                      "subtypes": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "IfcRelDeclares",
+          "subtypes": []
+        },
+        {
+          "name": "IfcRelDecomposes",
+          "subtypes": [
+            {
+              "name": "IfcRelAggregates",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelNests",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelProjectsElement",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelVoidsElement",
+              "subtypes": []
+            }
+          ]
+        },
+        {
+          "name": "IfcRelDefines",
+          "subtypes": [
+            {
+              "name": "IfcRelDefinesByObject",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelDefinesByProperties",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelDefinesByTemplate",
+              "subtypes": []
+            },
+            {
+              "name": "IfcRelDefinesByType",
+              "subtypes": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
