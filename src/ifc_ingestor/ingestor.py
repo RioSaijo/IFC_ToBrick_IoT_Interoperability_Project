@@ -1,52 +1,49 @@
 ﻿
+import ifcopenshell
 from __future__ import annotations
-
 from pathlib import Path
 from typing import Optional
-
-import ifcopenshell
-
 from app.contracts import IfcBundle
 
 
 def _detect_schema(model: "ifcopenshell.file") -> str:
     """
-    ifcopenshell の model から IFC スキーマ名を取得するヘルパー。
-    例: "IFC2X3", "IFC4", "IFC4X3" など。
+    Helper function for retrieving the IFC schema name from an ifcopenshell model.
+    Typical return values include "IFC2X3" , "IFC4" , "IFC4X3" , and related schema identifiers.
     """
-    # ifcopenshell のバージョンによって属性名が異なる可能性もあるため、
-    # 安全側で getattr を使っておく。
+    # Attribute names may vary depending on the ifcopenshell version,
+    # so getattr is used as a defensive approach.
     for attr in ("schema", "schema_name", "schema_identifier"):
         schema = getattr(model, attr, None)
         if isinstance(schema, str) and schema:
             return schema.upper()
 
-    # 取れなかった場合のフォールバック
+    # Fallback if retrieval fails
     return "UNKNOWN"
 
 
 def load_ifc_bundle(ifc_path: str) -> IfcBundle:
     """
-    IFC ファイルを読み込み、最小限のメタ情報とともに IfcBundle にラップして返す。
-
+    Load an IFC file and wrap it into an IfcBundle together with minimal metadata.
+    
     Parameters
     ----------
     ifc_path : str
-        入力 IFC ファイルへのパス。
+        Input IFC file path.
 
     Returns
     -------
     IfcBundle
-        - schema: IFC スキーマ名 (例: "IFC2X3")
-        - source_path: 与えられた IFC ファイルパス（絶対パス化）
-        - model: ifcopenshell.file オブジェクト
+        - schema: IFC schema name (e.g., "IFC2X3")
+        - source_path: Input IFC file path (converted to absolute path)
+        - model: ifcopenshell.file object
 
     Raises
     ------
     FileNotFoundError
-        ファイルが存在しない場合。
+        File not found.
     RuntimeError
-        ifcopenshell がファイルを開けなかった場合。
+        Failed to open the file.
     """
     path_obj = Path(ifc_path)
 
@@ -59,7 +56,7 @@ def load_ifc_bundle(ifc_path: str) -> IfcBundle:
         raise RuntimeError(f"Failed to open IFC file with ifcopenshell: {path_obj}") from exc
 
     schema = _detect_schema(model)
-    # 絶対パスに揃えておくと、後段のモジュールで扱いやすい
+    # Converting the path to an absolute path simplifies handling in downstream modules.
     abs_path = str(path_obj.resolve())
 
     return IfcBundle(

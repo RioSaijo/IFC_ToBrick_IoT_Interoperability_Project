@@ -1,8 +1,6 @@
 ﻿from __future__ import annotations
-
 from typing import List, Optional, Dict
 from dataclasses import dataclass
-
 from app.contracts import IfcBundle, BdnsTaggedAsset, BdnsTaggedAssets
 
 # ========================

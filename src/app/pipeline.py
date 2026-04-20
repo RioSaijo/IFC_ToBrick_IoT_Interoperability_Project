@@ -29,3 +29,5 @@ def run_all(
     bg: BrickGraph = build_graph(bundle, equip_set, pt_set, base_ns)
     write_turtle(bg, out_ttl)
     return {"out": out_ttl}
+
+
