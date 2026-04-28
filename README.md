@@ -1,5 +1,16 @@
 # IFC to Brick IoT Interoperability Project
 
+
+
+Project title and short description
+Purpose and scope
+Input and output
+How to use
+Project status
+License and acknowledgements
+
+
+
 ## Overview
 This repository explores interoperability between IFC based building models
 and Brick Schema for IoT enabled building systems.
@@ -20,7 +31,7 @@ This repository is intended for technical review and discussion
 rather than direct or automated execution.
 
 
-## Execution (experimental)
+## How to run
 A preliminary execution entry point is provided.
 
 ```text
