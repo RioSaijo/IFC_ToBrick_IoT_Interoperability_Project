@@ -25,7 +25,7 @@ A preliminary execution entry point is provided.
 
 ```text
 python run.py
-```text
+```
 
 ## Repository Structure
 IFC_ToBrick_IoT_Interoperability_Project
