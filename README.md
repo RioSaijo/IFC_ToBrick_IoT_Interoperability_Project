@@ -28,6 +28,7 @@ python run.py
 ```
 
 ## Repository Structure
+```bash
 IFC_ToBrick_IoT_Interoperability_Project
 ├─ README.md
 ├─ .gitignore
@@ -43,6 +44,7 @@ IFC_ToBrick_IoT_Interoperability_Project
 │  └─ *.ipynb
 ├─ report
 │  └─ *
+```
 
 ## Directory Descriptions
 
