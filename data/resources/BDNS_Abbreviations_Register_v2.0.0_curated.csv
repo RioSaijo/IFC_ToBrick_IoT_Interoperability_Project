@@ -1,4 +1,4 @@
-#1055asset_description,asset_abbreviation,can_be_connected,dbo_entity_type,ifc4_3,ifc2x3,ifc2x3_entity,ifc2x3_predefined_type,ifc4_3_entity,ifc4_3_predefined_type
+asset_description,asset_abbreviation,can_be_connected,dbo_entity_type,ifc4_3,ifc2x3,ifc2x3_entity,ifc2x3_predefined_type,ifc4_3_entity,ifc4_3_predefined_type
 access control - RFID controller,RFIDC,1,,IfcController,IfcController,IfcController,,IfcController,
 access control - RFID reader,RFIDR,1,,IfcCommunicationsApplianceSCANNER,IfcElectricApplianceSCANNER,IfcElectricAppliance,SCANNER,IfcCommunicationsAppliance,SCANNER
 access control - access control system,ACS,1,,IfcDistributionSystemSECURITY,,,,IfcDistributionSystem,SECURITY

@@ -100,3 +100,27 @@ def write_turtle(bg: BrickGraph, out_ttl: str | Path) -> None:
 def write_equipments_turtle(equip_set: BrickEquipmentSet, base_ns: str, out_ttl: str | Path) -> None:
     bg = build_graph_from_equipments(equip_set, base_ns)
     write_turtle(bg, out_ttl)
+
+
+from pathlib import Path
+from rdflib import Graph
+
+def merge_ttl_files(
+    ttl_dir: str | Path,
+    output_path: str | Path | None = None
+) -> Graph:
+    """
+    指定ディレクトリ配下のTTLファイルをすべて読み込み,
+    RDFグラフとしてマージする関数
+    """
+
+    ttl_dir = Path(ttl_dir)
+    graph = Graph()
+
+    for ttl_file in ttl_dir.glob("*.ttl"):
+        graph.parse(ttl_file, format="turtle")
+
+    if output_path is not None:
+        graph.serialize(destination=str(output_path), format="turtle")
+
+    return graph
