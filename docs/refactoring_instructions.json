@@ -1,0 +1,54 @@
+{
+  "project": "IFC_ToBrick_IoT_Interoperability_Project",
+  "goal": "Reorganize the public research prototype without changing its research objective.",
+  "priorities": [
+    "correctness",
+    "traceability",
+    "readability",
+    "simplicity",
+    "extensibility"
+  ],
+  "target_modules": [
+    "src/models.py",
+    "src/ifc.py",
+    "src/mapping.py",
+    "src/points.py",
+    "src/reasoning.py",
+    "src/rdf.py",
+    "src/validation.py",
+    "src/pipeline.py"
+  ],
+  "mapping_policy": {
+    "project_crosswalk_is_authoritative": false,
+    "preferred_sources": [
+      "public authoritative mapping information",
+      "official ontology or standard definitions",
+      "bSDD and other machine-readable public references",
+      "project-defined mapping table"
+    ],
+    "uncertain_mapping": "review_required",
+    "do_not_guess": true,
+    "record_provenance": true
+  },
+  "migration_policy": {
+    "delete_legacy_before_verification": false,
+    "sequence": [
+      "inspect legacy implementation",
+      "migrate logic",
+      "update imports",
+      "verify minimum functionality",
+      "check README consistency",
+      "archive or delete legacy files"
+    ]
+  },
+  "public_repository_policy": {
+    "avoid_overengineering": true,
+    "keep_readme_concise": true,
+    "separate_experiments_from_main_code": true,
+    "do_not_commit_private_data_or_credentials": true
+  },
+  "validation_policy": {
+    "undefined_rule": "TODO or 要検討",
+    "do_not_infer_unverified_constraints": true
+  }
+}
