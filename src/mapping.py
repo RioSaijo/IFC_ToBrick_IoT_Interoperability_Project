@@ -101,9 +101,12 @@ def load_project_crosswalk(path: str | Path | None = None) -> Dict[str, dict]:
             brick_class = (row.get("brick_class_candidate") or "").strip()
             if not code or not brick_class:
                 continue
+            candidates = [part.strip() for part in brick_class.split("|") if part.strip()]
             result[code] = {
-                "brick_class": brick_class,
+                "brick_class": candidates[0] if len(candidates) == 1 else DEFAULT_FALLBACK_BRICK_CLASS,
+                "brick_class_candidates": candidates,
                 "source": "project-defined",
+                "status": "project-defined" if len(candidates) == 1 else "review_required",
                 "bdns_label": (row.get("bdns_tag") or "").strip() or None,
                 "raw_ifc_class": (row.get("raw_ifc_class") or "").strip() or None,
             }
@@ -145,6 +148,7 @@ def map_bdns_to_brick(
             if record:
                 brick_class = str(record.get("brick_class") or "").strip()
                 mapping_source = record.get("source")
+                mapping_status = str(record.get("status") or "project-defined")
             else:
                 brick_class = DEFAULT_FALLBACK_BRICK_CLASS
                 mapping_status = "review_required"
@@ -162,6 +166,7 @@ def map_bdns_to_brick(
                     "bdns_label": asset.bdns_tag,
                     "mapping_status": mapping_status,
                     "mapping_source": mapping_source,
+                    "brick_class_candidates": (record or {}).get("brick_class_candidates", []),
                 },
             )
         )
