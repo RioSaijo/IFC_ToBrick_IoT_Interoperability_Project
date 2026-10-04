@@ -163,14 +163,15 @@ The project will remain in this compact structure unless a module becomes suffic
 
 ## Current Repository Contents
 
-The current repository still contains the earlier prototype structure under `src/`, `notebook/`, `data/`, and `report/`. These files are being migrated gradually into the simplified architecture above.
+The simplified core modules under `src/` have now been added, while the earlier prototype modules remain temporarily for comparison and migration verification. Legacy files will not be removed until the new pipeline has been functionally checked.
 
 Exploratory notebooks are retained as research records and are not treated as the primary implementation.
 
 ## Development Status
 - The project is under active refactoring.
+- Simplified core modules for IFC loading, mapping, point processing, reasoning, RDF generation, validation, and pipeline orchestration have been added.
+- Legacy modules remain temporarily until functional verification is completed.
 - Existing research logic will be retained while module responsibilities are simplified.
-- The planned structure above represents the target organization for the next implementation stage.
 - Some implementation details remain provisional.
 
 ## Notes
