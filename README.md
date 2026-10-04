@@ -74,11 +74,21 @@ Validation
 | `pipeline.py` | Input paths and settings | Coordinates the overall workflow | Pipeline result |
 | `models.py` | - | Defines shared data structures used between modules | IFC, equipment, point, relation, and graph objects |
 | `ifc.py` | IFC file | Loads IFC and extracts required spatial, equipment, and relationship information | Structured IFC data |
-| `mapping.py` | IFC data and mapping resources | Maps IFC / BDNS information to Brick concepts | Brick equipment and mapped entities |
+| `mapping.py` | IFC data and mapping resources | Maps IFC / BDNS information to Brick concepts, prioritizing authoritative external mappings where available | Brick equipment and mapped entities |
 | `points.py` | BMS / IoT CSV | Loads, normalizes, and maps operational point metadata | Brick point objects |
 | `reasoning.py` | IFC and mapped entities | Infers spatial and equipment relationships such as location and feeds | Semantic relations |
 | `rdf.py` | Mapped entities and relations | Builds and exports the RDF graph | Brick-compatible RDF / TTL |
 | `validation.py` | RDF graph | Performs semantic validation, including SHACL where applicable | Validation result |
+
+### Mapping Reference Policy
+
+The current BDNS-to-Brick crosswalks included in this repository are primarily used as a research prototype and may contain manually curated or simulated correspondences.
+
+Where authoritative mapping information is available, the implementation should preferentially reference public and machine-readable sources, such as the buildingSMART Data Dictionary (bSDD), official Brick Schema definitions and alignments, and other recognized standards or ontology mappings.
+
+Project-specific mapping tables should therefore be treated as fallback, supplementary, or experimentally validated resources rather than as authoritative semantic definitions.
+
+When no authoritative mapping can be identified, the mapping should be recorded explicitly as project-defined and should remain traceable for later review and validation.
 
 ### Main Inputs
 
